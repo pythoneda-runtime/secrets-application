@@ -20,9 +20,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import asyncio
-from pythoneda.shared.application import PythonEDA
+from pythoneda.shared.application import enable, PythonEDA
+from pythoneda.runtime.secrets.infrastructure.dbus import SecretsDbusSignalListener
 
 
+@enable(SecretsDbusSignalListener)
 class SecretsApp(PythonEDA):
     """
     Runs PythonEDA Secrets.
@@ -53,7 +55,7 @@ class SecretsApp(PythonEDA):
 
 
 if __name__ == "__main__":
-    asyncio.run(SecretsApp.main("pythoneda.runtime.secrets.Secrets"))
+    asyncio.run(SecretsApp.main("pythoneda.runtime.secrets.application.SecretsApp"))
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
 # Local Variables:
