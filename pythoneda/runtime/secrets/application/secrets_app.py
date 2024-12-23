@@ -20,11 +20,36 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import asyncio
+from dbus_next import BusType
 from pythoneda.shared.application import enable, PythonEDA
-from pythoneda.runtime.secrets.infrastructure.dbus import SecretsDbusSignalListener
+from pythoneda.shared.runtime.secrets.events.infrastructure.dbus import (
+    DbusCredentialIssued,
+    DbusCredentialProvided,
+    DbusCredentialRequested,
+)
+from pythoneda.runtime.secrets.infrastructure.dbus import (
+    SecretsDbusSignalEmitter,
+    SecretsDbusSignalListener,
+)
 
 
-@enable(SecretsDbusSignalListener)
+@enable(
+    SecretsDbusSignalEmitter,
+    events=[{"event-class": DbusCredentialProvided, "bus-type": BusType.SYSTEM}],
+)
+@enable(
+    SecretsDbusSignalListener,
+    events=[
+        {
+            "event-class": DbusCredentialIssued,
+            "bus-type": BusType.SYSTEM,
+        },
+        {
+            "event-class": DbusCredentialRequested,
+            "bus-type": BusType.SYSTEM,
+        },
+    ],
+)
 class SecretsApp(PythonEDA):
     """
     Runs PythonEDA Secrets.
