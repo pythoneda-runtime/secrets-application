@@ -76,7 +76,7 @@ class SecretsApp(PythonEDA):
             banner = SecretsBanner()
         except ImportError:
             banner = None
-        super().__init__(banner, __file__)
+        super().__init__("Secrets", banner, __file__)
 
 
 if __name__ == "__main__":
