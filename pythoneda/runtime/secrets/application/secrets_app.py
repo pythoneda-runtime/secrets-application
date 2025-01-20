@@ -80,7 +80,7 @@ class SecretsApp(PythonEDA):
 
 
 if __name__ == "__main__":
-    asyncio.run(SecretsApp.main("pythoneda.runtime.secrets.application.SecretsApp"))
+    asyncio.run(SecretsApp.main())
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
 # Local Variables:
